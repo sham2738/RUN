@@ -1,0 +1,22 @@
+X = data[['Age', 'EstimatedSalary']]
+Y = data['Purchased']
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.25, random_state = 0)
+sc_X = StandardScaler()
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.transform(X_test)
+print(f'Train Dataset Size - X: {X_train.shape}, Y: {Y_train.shape}')
+print(f'Test  Dataset Size - X: {X_test.shape}, Y: {Y_test.shape}')
+
+from sklearn.linear_model import LogisticRegression
+lm = LogisticRegression(random_state = 0, solver='lbfgs' )
+lm.fit(X_train, Y_train)
+predictions = lm.predict(X_test)
+plt.figure(figsize=(6, 6));
+sns.regplot(x = X_test[:, 1], y = predictions, scatter_kws={'s':5});
+plt.scatter(X_test[:, 1], Y_test, marker = '+');
+plt.xlabel("User's Estimated Salary");
+plt.ylabel('Ads Purchased');
+plt.title('Regression Line Tracing');

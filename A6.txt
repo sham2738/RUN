@@ -1,0 +1,82 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+iris = pd.read_csv("Iris.csv")
+
+iris.head()
+
+iris.dtypes
+
+from sklearn import preprocessing
+
+enc = preprocessing.OneHotEncoder()
+enc_iris = pd.DataFrame(enc.fit_transform(iris[['SepalLengthCm']]).toarray())
+enc_iris
+
+from sklearn import preprocessing
+le = preprocessing.LabelEncoder()
+iris['Species'] = le.fit_transform(iris['Species'])
+newiris=iris
+iris.head(7)
+
+iris.isnull().head(5)
+
+x = iris.iloc[:,:-1].values
+print(x)
+
+y = iris.iloc[:,-1].values
+print(y)
+
+x = iris.drop(['SepalLengthCm'],axis = 1)
+y = iris['SepalLengthCm']
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import pandas as pd
+# Load the iris dataset
+iris_data = pd.read_csv('iris.csv')
+# Function
+def train_test_rmse(x, y):
+ x = iris_data[x]
+ y = iris_data[y]
+ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=4)
+ linreg = LinearRegression()
+ linreg.fit(x_train, y_train)
+ y_pred = linreg.predict(x_test)
+ print(accuracy_score(y_test,y_pred))
+ return np.sqrt(metrics.mean_squared_error(y_test, y_pred))
+
+import numpy as np
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=4)
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+
+x = np.array([[-1,-1],[-2,-1],[-3,-2],[1,1],[2,1],[3,2]])
+y = np.array([1,1,1,2,2,2])
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=4)
+
+from sklearn.naive_bayes import GaussianNB
+gaussian = GaussianNB()
+gaussian.fit(x_train, y_train)
+
+y_pred = gaussian.predict(x_test)
+
+from sklearn.metrics import confusion_matrix,accuracy_score,precision_score,recall_score
+y_true = [2,0,2,2,0,1]
+y_pred = [0,0,2,2,0,2]
+confusion_matrix(y_true,y_pred)
+
+ac = accuracy_score(y_test,y_pred)
+print(ac)
+
+ps = precision_score(y_test,y_pred,average='micro')
+print(ps)
+
+rs = recall_score(y_test, y_pred, average='micro')
+print(rs)
